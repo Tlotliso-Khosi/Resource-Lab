@@ -124,11 +124,9 @@
 #	cin >> selection;
 #	return selection;
 #}
-#void yield(string season,int selection,int moisture,int fertility)
-#{
-#	system("cls");
+#void yield(int option,int selection,int moisture,int fertility)
 #	long double length, width;
-#	long double yield1, yield2, yield3, yield4;					//Yield to be harvested
+#	int yield					//Yield to be harvested
 #	long int line1=0,line2= 0;											//Number of crops in a line
 #	long int landDivision;										//How many TOTAL lines
 #	long double lineSpacing = 0.30, cropSpacing = 0.20;			//In centimeters
@@ -144,106 +142,81 @@
 #	<<"5% loss if good 		(type good)"<<endl
 #	<<"15% loss if moderate 	(type moderate)"<<endl
 #	<<"40% loss bad 	(type bad)"<<endl;
-#	*/
-#
-#	if(moisture==1)
-#	{
-#		moisturer=(60/100);
-#	}
-#	else if( moisture==2)
-#	{
-#		moisturer=(85/100);
-#	}
-#	else if(moisture==3)
-#	{
-#		moisturer=(95/100);
-#	}
-#
-#	if(fertility==1)
-#	{
-#		fertility1=(60/100);
-#	}
-#	else if (fertility==2)
-#	{
-#		fertility1=(85/100);
-#	}
-#	else if(fertility==3)
-#	{
-#		fertility1=(95/100);
-#	}
+#	
 #
 #	cout<<"Enter the length of the field: \n"<<endl;
 #	cin>>length;
 #	cout<<"Width: "<<endl;
 #	cin>>width;
-#
+#  	int small, medium, large
 #	landDivision = (int)(width/lineSpacing);
 #	line1 = (int)length/cropSpacing;
 #	line2 = (int)length/(cropSpacing *3 );
-#
-#	yield1 = (int)(line1 * (landDivision/4));
-#	yield2 = (int)(line2 * (landDivision/4) );
-#
-#
+
+#	area = length * width 
+#	area_per_crop = area/4
+#	certinity = fetrility + moisture
+#       yeild = (area_per_crop * 10)*certinity
+#	
 #	if(season=="winter")
 #	{
 #		if(selection == 1)
 #		{
-#			cout<<"The yield for Wheat"<<(int)(yield1-((yield1*moisturer)+(yield1*fertility1)))<<"units";
+#			cout<<"The yield for Wheat"<<yeild<<"units";
 #			cout<<endl;
-#			cout<<"The yeild for peas"<<(int)(yield1-((yield1*moisturer)+(yield1*fertility1)))<<"units";
+#			cout<<"The yeild for peas"<<yeild<<"units";
 #			cout<<endl;
 #
 #		if(selection == 2)
 #		{
-#			cout<<"The yield for Wheat"<<(int)(yield1-((yield1*moisturer)+(yield1*fertility1)))<<"units";
+#			cout<<"The yield for Wheat"<<yeild)<<"units";
 #			cout<<endl;
-#			cout<<"The yeild for potatoes"<<(int)(yield2-((yield2*moisturer)+(yield2*fertility1)))<<"units";
+#			cout<<"The yeild for potatoes"<<yeild<<"units";
 #			cout<<endl;
 #
 #		}
 #		if(selection == 3)
 #		{
-#			cout<<"The yield for peas"<<(int)(yield1-((yield1*moisturer)+(yield1*fertility1)))<<"units";
+#			cout<<"The yield for peas"<<yeild)<<"units";
 #			cout<<endl;
-#			cout<<"The yeild for potatoes"<<(int)(yield2-((yield2*moisturer)+(yield2*fertility1)))<<"units";
+#			cout<<"The yeild for potatoes"<<yeild<<"units";
 #			cout<<endl;
 #		}
 #	}
 #	if(season=="summer")
 #	{
-#		if(selection == 1)
+#		if(option == 1)
 #		{
-#			cout<<"The yeild for maize "<<(int)(yield1-((yield1*moisturer)+(yield1*fertility1)))<<" units";
+#			cout<<"The yeild for maize "<<yeild)<<" units";
 #			cout<<endl;
 #			cout<<endl;
 #		}
-#		if(selection == 2)
+#		if(option == 2)
 #		{
-#			cout<<"The yeild for maize "<<(int)(yield1-((yield1*moisturer)+(yield1*fertility1)))<<" units";
+#			cout<<"The yeild for maize "<<yeild<<" units";
 #			cout<<endl;
-#			cout<<"The yeild for pumpkin "<<(int)(yield2-((yield2*moisturer)+(yield2*fertility1)))<<" units";
+#			cout<<"The yeild for pumpkin "<<yeild<<" units";
 #			cout<<endl;
 #		}
-#		if(selection == 3)
+#		if(option == 3)
 #		{
-#			cout<<"The yeild for pumpkin "<<(int)(yield2-((yield2*moisturer)+(yield2*fertility1)))<<" units";
+#			cout<<"The yeild for pumpkin "<<yeild<<" units";
 #			cout<<endl;
-#			cout<<"The yeild for beans "<<(int)(yield1-((yield1*moisturer)+(yield1*fertility1)))<<" units";
+#			cout<<"The yeild for beans "<<yeild<<" units";
 #			cout<<endl;
 #		}
-#		if(selection == 4)
+#		if(option == 4)
 #		{
-#			cout<<"The yeild for sorghum"<<(int)(yield1-((yield1*moisturer)+(yield1*fertility1)))<<" units";
+#			cout<<"The yeild for sorghum"<<yeild<<" units";
 #			cout<<endl;
-#			cout<<"The yeild for groundnuts"<<(int)(yield1-((yield1*moisturer)+(yield1*fertility1)))<<" units";
+#			cout<<"The yeild for groundnuts"<<yeild<<" units";
 #			cout<<endl;
 #		}
-#		if(selection == 5)
+#		if(option == 5)
 #		{
-#			cout<<"The yeild for watermelon "<<(int)(yield2-((yield2*moisturer)+(yield2*fertility1)))<<" units";
+#			cout<<"The yeild for watermelon "<<yeild<<" units";
 #			cout<<endl;
-#			cout<<"The yeild for maize"<<(int)(yield1-((yield1*moisturer)+(yield1*fertility1)))<<" units";
+#			cout<<"The yeild for maize"<<yeild<<" units";
 #			cout<<endl;
 #		}
 #	}
@@ -1039,7 +1012,7 @@ yield1:
 	
 	div $t1,$t1,$t3 #area per crop
 	
-	la $t1,medium
+	la $t1,small
 	lw $a1,28($sp) #fertility
 	lw $a2,24($sp)
 	
