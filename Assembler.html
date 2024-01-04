@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Assembler Simulator</title>
+     <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color:#001f3f;
+      background-image:url('https://ak.picdn.net/shutterstock/videos/1973317/thumb/4.jpg');
+    }
+    form{
+	max-width=400px;
+	margin:0 auto;
+    }
+
+    label, input, textarea{
+	display:block;
+	margin-bottom:20px;
+    }
+   
+    .file-input{
+	display:flex;
+	align-items:justified;
+     }
+    .file-input label{
+	flex:1;
+     }
+    .file-input input[type="file"]{
+	flex:2;
+     }
+    .container {
+      
+      max-width: 400px;
+      margin: 0 auto;
+      padding: 20px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      background-color: #f2f2f2;
+      margin-top: 50px;
+    }
+
+    .container h2 {
+      text-align: center;
+    }
+
+    .form-group {
+      margin-bottom: 15px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 5px;
+      font-weight: bold;
+    }
+
+    .form-group input[type="text"],
+    .form-group textarea {
+      width: 100%;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    .form-group textarea {
+      height: 100px;
+    }
+
+    .form-group button {
+      padding: 10px 20px;
+      background-color: #001f3f;
+      color: #fff;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .form-group button:hover {
+      background-color: #45a049;
+    }
+    
+    .form-group pre {
+      background-color: #f2f2f2;
+      padding: 10px;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      overflow-wrap: break-word;
+    }
+  </style>
+
+
+    <script>
+        function assembleInstructions() {
+            var instructionsTextArea = document.getElementById("instructions");
+            var instructions = instructionsTextArea.value.split("\n");
+
+            var opcodes = ["add", "div", "jal", "bl","br","#t0", "#t1", "#t2", "#t3", "#z0"];
+            var opcodesBinary = ["011", "100", "101", "110", "111","0110","0111","1000","1001","0000"];
+
+            var assembledCodeLines = []; // Array to store assembled instructions
+            for (var i = 0; i < instructions.length; i++) {
+                var instruction = instructions[i];
+                var parts = instruction.trim().split(" "); // Split the instruction into parts
+
+                var assembledInstruction = parts.map(function(part) {
+                    var opcodeIndex = opcodes.indexOf(part);
+                    return (opcodeIndex !== -1) ? opcodesBinary[opcodeIndex] : ("binary(" + part + ")"); // Use "bitset_" for non-opcode parts
+                }).join(" ");
+
+                assembledCodeLines.push(assembledInstruction); // Store the assembled instruction
+            }
+
+            // Display the translated code lines in the textarea
+            document.getElementById("assembledCode").value = assembledCodeLines.join("\n");
+        }
+    </script>
+</head>
+<body>
+    <div class="container">
+    <h2>Assembler Simulator</h2>
+    <textarea id="instructions" rows="10" cols="50" placeholder="Enter your instructions here"></textarea><br>
+    
+     <div class="form-group">
+      <button type="submit" onclick="assembleInstructions()">Assemble Instructions</button><br>
+     </div>
+    <h2>Assembled Code:</h2>
+
+    <div class="form-group">
+        <label for="description">Machine Code:</label>
+        <textarea id="assembledCode" name="description" placeholder="assembledCode"></textarea>
+      </div>
+    <pre id="assembledCode"></pre>
+</body>
+</html>
